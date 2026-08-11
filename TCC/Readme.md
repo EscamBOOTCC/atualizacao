@@ -29,4 +29,7 @@ O **EscamBOO** surge como resposta a essa problemática: uma plataforma digital 
 | **Criptografia** | Bcrypt | Algoritmo de hash seguro para proteção e integridade das senhas dos usuários. |
 | **Gestão do Projeto** | Trello & GitHub | Ferramentas de suporte para o quadro visual de tarefas e versionamento de código via Git. |
 
+
+teste
+
 ---
