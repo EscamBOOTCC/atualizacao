@@ -28,23 +28,23 @@ class Controller
         exit();
     }
 
-    // public function autenticacaoRequired()
-    // {
-    //     if (!isset($_SESSION['usuario_logado'])) 
-    //     {
-    //         $this->redirect(URL_BASE . '/login');
-    //     }
+    public function autenticacaoRequired()
+    {
+        if (!isset($_SESSION['usuario_logado'])) 
+        {
+            $this->redirect(URL_BASE . '/login');
+        }
 
-    //     return true;
-    // }
+        return true;
+    }
 
-    // public function adminRequired()
-    // {
-    //     if (!isset($_SESSION['usuario_logado']) || $_SESSION['usuario_logado']->getPerfil() !== 'admin') 
-    //     {
-    //         $this->redirect(URL_BASE . '/login');
-    //     }
+    public function adminRequired()
+    {
+        if (!isset($_SESSION['usuario_logado']) || $_SESSION['usuario_logado']->getPerfil() !== 'admin') 
+        {
+            $this->redirect(URL_BASE . '/login');
+        }
 
-    //     return true;
-    // }
+        return true;
+    }
 }

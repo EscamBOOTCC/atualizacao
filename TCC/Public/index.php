@@ -9,18 +9,22 @@ $router = new Router();
 
 //rotitas
 
-$router->get('/', 'LoginController@login'); //define o login/cadastro como primeira coisa que a pessoa faz ao abrir o escamboo
 $router->get('/acordo', 'AcordoController@formalizarAcordo');
+
 $router->get('/usuarios', 'UsuarioController@listarTodosUsuarios');
-$router->get('/usuarios/cadastrar', 'UsuarioController@CadastrarUsuarios');
+
+$router->get('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuarios');
+
+$router->get('/usuarios/cadastrarTrabalhador', 'UsuarioController@cadastrarTrabalhador');
+
+$router->get('/usuarios/cadastrarAdm', 'UsuarioController@cadastrarAdm');
 
 
 $router->post('/usuarios/salvar', 'UsuarioController@salvar');
 
-//FINALMENREAJIDHUHYBABCYBUSY
-$router->get('/login', 'LoginController@login');
-$router->post('/login', 'LoginController@autenticar');
-$router->get('/logout', 'LoginController@logout');
+$router->post('/usuarios/salvarTrabalhador', 'UsuarioController@salvarTrabalhador');
+
+$router->post('/usuarios/salvarAdm', 'UsuarioController@salvarAdm');
 
 
 $router->run();

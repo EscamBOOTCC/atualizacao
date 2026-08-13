@@ -24,6 +24,9 @@
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>Tipo</th>
+                        <th>Operações</th>
+
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +37,9 @@
                             <td><?= htmlspecialchars($usuario['Nome']) ?></td>
                             <td><?= htmlspecialchars($usuario['Email']) ?></td>
                             <td><?= htmlspecialchars($usuario['Tipo']) ?></td>
+                            <td>
+                                <a href="<?=  URL_BASE ?>/rota/?id=<?= $usuario['IdUsuario'] ?> ?>">Editar</a> I <a href="">Excluir</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

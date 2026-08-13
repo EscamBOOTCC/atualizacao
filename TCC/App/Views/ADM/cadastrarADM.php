@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Cadastrar Trabalhador</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="card shadow-sm col-md-8 mx-auto">
+
+    <div class="card shadow-sm col-md-8 mx-auto mt-4">
         <div class="card-body p-4">
 
-            <form action="<?= URL_BASE ?>/usuarios/salvar" method="post">
+            <h3 class="mb-4">Cadastrar Trabalhador</h3>
 
+            <form action="<?= URL_BASE ?>/usuarios/salvarAdm" method="post">
+
+                <!-- NOME -->
                 <div class="mb-3">
                     <label for="nome" class="form-label">
                         Nome Completo <span class="text-danger">*</span>
@@ -35,6 +39,7 @@
                 </div>
 
 
+                <!-- CPF -->
                 <div class="mb-3">
                     <label for="cpf" class="form-label">
                         CPF <span class="text-danger">*</span>
@@ -57,6 +62,7 @@
                 </div>
 
 
+                <!-- EMAIL -->
                 <div class="mb-3">
                     <label for="email" class="form-label">
                         E-mail <span class="text-danger">*</span>
@@ -77,6 +83,7 @@
                 </div>
 
 
+                <!-- DATA DE NASCIMENTO -->
                 <div class="mb-3">
                     <label for="dataNascimento" class="form-label">
                         Data de Nascimento
@@ -91,6 +98,7 @@
                 </div>
 
 
+                <!-- GENERO -->
                 <div class="mb-3">
                     <label for="genero" class="form-label">
                         Gênero
@@ -100,6 +108,7 @@
                         class="form-select"
                         id="genero"
                         name="genero">
+
                         <option value="">Selecione</option>
 
                         <option
@@ -119,10 +128,12 @@
                             <?= (($usuario['Genero'] ?? '') === 'O') ? 'selected' : '' ?>>
                             Outro
                         </option>
+
                     </select>
                 </div>
 
 
+                <!-- ENDEREÇO -->
                 <div class="mb-3">
                     <label for="endereco" class="form-label">
                         Endereço
@@ -137,6 +148,7 @@
                 </div>
 
 
+                <!-- FOTO DE PERFIL -->
                 <div class="mb-3">
                     <label for="fotoPerfil" class="form-label">
                         Foto de Perfil (URL)
@@ -151,6 +163,7 @@
                 </div>
 
 
+                <!-- SENHA -->
                 <div class="mb-3">
                     <label for="senha" class="form-label">
                         Senha <span class="text-danger">*</span>
@@ -170,19 +183,18 @@
                 </div>
 
 
+                <!-- BOTÕES -->
                 <div class="d-flex gap-2 justify-content-end">
 
                     <a
                         href="<?= URL_BASE ?>/usuarios"
                         class="btn btn-outline-secondary">
-                        <i class="bi bi-x-circle"></i>
                         Cancelar
                     </a>
 
                     <button
                         type="submit"
                         class="btn btn-primary px-4">
-                        <i class="bi bi-check-circle"></i>
                         Cadastrar
                     </button>
 
@@ -192,7 +204,6 @@
 
         </div>
     </div>
-
 
 </body>
 

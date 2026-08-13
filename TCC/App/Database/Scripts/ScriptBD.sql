@@ -168,3 +168,6 @@ CREATE TABLE IF NOT EXISTS Acordo
         FOREIGN KEY (IdMatch) REFERENCES `Match` (IdMatch) 
         ON DELETE CASCADE
 );
+
+ALTER TABLE Trabalhador
+MODIFY Status VARCHAR(10);

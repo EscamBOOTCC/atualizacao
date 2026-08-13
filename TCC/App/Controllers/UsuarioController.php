@@ -37,21 +37,64 @@ class UsuarioController extends Controller
             'FotoPerfil' => trim($_POST['fotoPerfil'] ?? ''),
             'Endereco' => trim($_POST['endereco'] ?? '')
         ];
-
-        //
-
-        $usuario['Senha'] = password_hash(
-            $usuario['Senha'],
-            PASSWORD_DEFAULT
-        );
-
         $this->service->salvar($usuario);
 
         return $this->redirect('/usuarios');
     }
+    public function salvarTrabalhador()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->redirect('/usuarios');
+        }
+
+        $trabalhador = [
+            'Nome' => trim($_POST['nome'] ?? ''),
+            'CPF' => trim($_POST['cpf'] ?? ''),
+            'Genero' => $_POST['genero'] ?? null,
+            'Email' => trim($_POST['email'] ?? ''),
+            'Senha' => $_POST['senha'] ?? '',
+            'DataNascimento' => $_POST['dataNascimento'] ?? null,
+            'FotoPerfil' => trim($_POST['fotoPerfil'] ?? ''),
+            'Endereco' => trim($_POST['endereco'] ?? '')
+        ];
+
+        $this->service->salvarTrabalhador($trabalhador);
+
+        return $this->redirect('/usuarios');
+    }
+    public function salvarAdm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->redirect('/usuarios');
+        }
+
+        $adm = [
+            'Nome' => trim($_POST['nome'] ?? ''),
+            'CPF' => trim($_POST['cpf'] ?? ''),
+            'Genero' => $_POST['genero'] ?? null,
+            'Email' => trim($_POST['email'] ?? ''),
+            'Senha' => $_POST['senha'] ?? '',
+            'DataNascimento' => $_POST['dataNascimento'] ?? null,
+            'FotoPerfil' => trim($_POST['fotoPerfil'] ?? ''),
+            'Endereco' => trim($_POST['endereco'] ?? '')
+        ];
+
+        $this->service->salvarAdm($adm);
+
+        return $this->redirect('/usuarios');
+    }
+
 
     public function editarUsuario() {}
 
+    public function cadastrarAdm()
+    {
+        return $this->view('ADM/cadastrarADM');
+    }
+    public function cadastrarTrabalhador()
+    {
+        return $this->view('Trabalhador/cadastrarTrabalhador');
+    }
     public function listarTodosUsuarios()
     {
         $usuarios = $this->service->listarTodos();

@@ -102,8 +102,6 @@
                         </div>
 
                         <button type="submit" class="btn btn-dark w-100">Entrar como ADM</button>
-                        <!-- dicutir com o grupo: eu acredito que seja melhor os ADMS virem pré definidos no banco de dados, pra qualquer um nao poder logar como adm e ter acessos
-                         exclusivos do adm, enfim, teria que ver o que vocês acham -->
                     </form>
                 </div>
 
