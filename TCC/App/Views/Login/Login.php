@@ -23,94 +23,46 @@
                 </div>
             <?php endif; ?>
 
-            <ul class="nav nav-tabs nav-fill mb-4" id="tipoLoginTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button
-                        class="nav-link active"
-                        id="trabalhador-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#trabalhador-pane"
-                        type="button"
-                        role="tab">
-                        Sou Trabalhador
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button
-                        class="nav-link"
-                        id="adm-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#adm-pane"
-                        type="button"
-                        role="tab">
-                        Sou ADM
-                    </button>
-                </li>
-            </ul>
+            <form action="<?= URL_BASE ?>/login" method="post">
 
-            <div class="tab-content" id="tipoLoginTabContent">
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail</label>
 
-                <div class="tab-pane fade show active" id="trabalhador-pane" role="tabpanel">
-                    <form action="<?= URL_BASE ?>/login" method="post">
-                        <div class="mb-3">
-                            <label for="email-trabalhador" class="form-label">E-mail</label>
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="email-trabalhador"
-                                name="email"
-                                value="<?= htmlspecialchars($email ?? '') ?>"
-                                required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="senha-trabalhador" class="form-label">Senha</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="senha-trabalhador"
-                                name="senha"
-                                required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Entrar como Trabalhador</button> 
-                        <!-- guys eu real estou com preguiça de fazer o redirecionamento pra cadastrar caso não tenha logim, depois eu vejo isso hehehehehe -->
-                    </form>
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="<?= htmlspecialchars($email ?? '') ?>"
+                        required>
                 </div>
 
-                <div class="tab-pane fade" id="adm-pane" role="tabpanel">
-                    <form action="<?= URL_BASE ?>/login" method="post">
-                        <div class="mb-3">
-                            <label for="email-adm" class="form-label">E-mail</label>
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="email-adm"
-                                name="email" 
-                                value="<?= htmlspecialchars($email ?? '') ?>"
-                                required>
-                        </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha</label>
 
-                        <div class="mb-3">
-                            <label for="senha-adm" class="form-label">Senha</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="senha-adm"
-                                name="senha"
-                                required>
-                        </div>
-
-                        <button type="submit" class="btn btn-dark w-100">Entrar como ADM</button>
-                    </form>
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="senha"
+                        name="senha"
+                        required>
                 </div>
 
+                <button type="submit" class="btn btn-primary w-100">
+                    Entrar
+                </button>
+
+            </form>
+
+            <div class="text-center mt-3">
+                <span class="text-muted">Ainda não tem uma conta?</span>
+                <a href="<?= URL_BASE ?>/usuarios/cadastrarTrabalhador">
+                    Cadastre-se
+                </a>
             </div>
-
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
