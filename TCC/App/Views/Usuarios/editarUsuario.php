@@ -63,6 +63,69 @@ $usuario = $usuario ?? [];
                             required>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="genero" class="form-label">Gênero</label>
+
+                        <select class="form-select" id="genero" name="genero">
+
+                            <option value="">Selecione</option>
+
+                            <option value="Masculino"
+                                <?= ($usuario['Genero'] ?? '') === 'Masculino' ? 'selected' : '' ?>>
+                                Masculino
+                            </option>
+
+                            <option value="Feminino"
+                                <?= ($usuario['Genero'] ?? '') === 'Feminino' ? 'selected' : '' ?>>
+                                Feminino
+                            </option>
+
+                            <option value="Outro"
+                                <?= ($usuario['Genero'] ?? '') === 'Outro' ? 'selected' : '' ?>>
+                                Outro
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dataNascimento" class="form-label">
+                            Data de nascimento
+                        </label>
+
+                        <input type="date"
+                            class="form-control"
+                            id="dataNascimento"
+                            name="dataNascimento"
+                            value="<?= htmlspecialchars($usuario['DataNascimento'] ?? '') ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="endereco" class="form-label">
+                            Endereço
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            id="endereco"
+                            name="endereco"
+                            value="<?= htmlspecialchars($usuario['Endereco'] ?? '') ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fotoPerfil" class="form-label">
+                            Foto de perfil
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            id="fotoPerfil"
+                            name="fotoPerfil"
+                            value="<?= htmlspecialchars($usuario['FotoPerfil'] ?? '') ?>">
+                    </div>
+
+                    <div class="d-flex gap-2">
+
                         <button type="submit" class="btn btn-primary">
                             Salvar alterações
                         </button>
