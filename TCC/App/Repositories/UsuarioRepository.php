@@ -12,28 +12,27 @@ class UsuarioRepository
     {
         $this->conn = ConnectionFactory::getConnection();
     }
-
     public function findById(int $id): ?array
     {
         $sql = "SELECT 
-                    u.IdUsuario,
-                    u.Nome,
-                    u.CPF,
-                    u.Genero,
-                    u.Email,
-                    u.FotoPerfil,
-                    CASE 
-                        WHEN a.IdAdm IS NOT NULL THEN 'adm'
-                        ELSE 'trabalhador'
-                    END AS Tipo
-                FROM Usuario u
-                LEFT JOIN ADM a ON a.IdAdm = u.IdUsuario
-                WHERE u.IdUsuario = :id";
+                u.IdUsuario,
+                u.Nome,
+                u.CPF,
+                u.Genero,
+                u.Email,
+                u.DataNascimento,
+                u.FotoPerfil,
+                u.Endereco,
+                CASE 
+                    WHEN a.IdAdm IS NOT NULL THEN 'adm'
+                    ELSE 'trabalhador'
+                END AS Tipo
+            FROM Usuario u
+            LEFT JOIN ADM a ON a.IdAdm = u.IdUsuario
+            WHERE u.IdUsuario = :id";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':id' => $id
-        ]);
+        $stmt->execute([':id' => $id]);
 
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
 
@@ -145,7 +144,6 @@ class UsuarioRepository
             $this->conn->commit();
 
             return $idUsuario;
-
         } catch (\Exception $e) {
 
             $this->conn->rollBack();
@@ -181,12 +179,36 @@ class UsuarioRepository
             $this->conn->commit();
 
             return $idUsuario;
-
         } catch (\Exception $e) {
 
             $this->conn->rollBack();
 
             throw $e;
         }
+    }
+    public function atualizar(array $usuario)
+    {
+        $sql = "UPDATE Usuario SET
+                Nome = :nome,
+                CPF = :cpf,
+                Genero = :genero,
+                Email = :email,
+                DataNascimento = :dataNascimento,
+                FotoPerfil = :fotoPerfil,
+                Endereco = :endereco
+            WHERE IdUsuario = :idUsuario";
+
+        $stmt = $this->conn->prepare($sql);
+
+        return $stmt->execute([
+            ':nome' => $usuario['Nome'],
+            ':cpf' => $usuario['CPF'],
+            ':genero' => $usuario['Genero'],
+            ':email' => $usuario['Email'],
+            ':dataNascimento' => $usuario['DataNascimento'],
+            ':fotoPerfil' => $usuario['FotoPerfil'],
+            ':endereco' => $usuario['Endereco'],
+            ':idUsuario' => $usuario['IdUsuario']
+        ]);
     }
 }

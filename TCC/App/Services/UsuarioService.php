@@ -37,4 +37,8 @@ class UsuarioService
     {
         return $this->repository->salvarAdm($adm);
     }
+    public function atualizar($usuario)
+{
+    return $this->repository->atualizar($usuario);
+}
 }

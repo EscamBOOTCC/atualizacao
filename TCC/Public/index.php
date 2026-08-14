@@ -17,6 +17,7 @@ $router->get('/logout', 'LoginController@logout');
 // Usuários
 $router->get('/usuarios', 'UsuarioController@listarTodosUsuarios');
 $router->get('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuarios');
+$router->get('/usuarios/editar', 'UsuarioController@editar');
 
 $router->get('/usuarios/cadastrarTrabalhador', 'UsuarioController@cadastrarTrabalhador');
 $router->get('/usuarios/cadastrarAdm', 'UsuarioController@cadastrarAdm');
@@ -24,6 +25,7 @@ $router->get('/usuarios/cadastrarAdm', 'UsuarioController@cadastrarAdm');
 $router->post('/usuarios/salvar', 'UsuarioController@salvar');
 $router->post('/usuarios/salvarTrabalhador', 'UsuarioController@salvarTrabalhador');
 $router->post('/usuarios/salvarAdm', 'UsuarioController@salvarAdm');
+$router->post('/usuarios/atualizar', 'UsuarioController@atualizar');
 
 // Outras rotas
 $router->get('/acordo', 'AcordoController@formalizarAcordo');

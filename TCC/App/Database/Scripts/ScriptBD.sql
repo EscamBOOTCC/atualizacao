@@ -171,3 +171,22 @@ CREATE TABLE IF NOT EXISTS Acordo
 
 ALTER TABLE Trabalhador
 MODIFY Status VARCHAR(10);
+
+USE EscamBOO;
+
+INSERT INTO Usuario
+(Nome, CPF, Genero, Email, Senha, DataNascimento, FotoPerfil, Endereco)
+VALUES
+('Luiza', '00000000001', NULL, 'Luiza@admin', 'Lui', NULL, NULL, NULL),
+('Rafa', '00000000002', NULL, 'Rafa@admin', 'rafa123', NULL, NULL, NULL),
+('Evillyn', '00000000003', NULL, 'Evillyn@admin', 'Evillyn2201', NULL, NULL, NULL),
+('Sarah', '00000000004', NULL, 'Sarah@admin', 'Sarah2201', NULL, NULL, NULL);
+
+INSERT INTO ADM (IdAdm)
+VALUES
+(11),
+(12),
+(13),
+(14);
+
+-- sempre rodar o gerar_hashes.php dps de inicializar o banco, copiar o codigo que ele devolve e rodar direto no banco, gambiarra das boas 

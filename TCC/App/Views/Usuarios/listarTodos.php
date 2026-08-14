@@ -26,7 +26,7 @@
                         <th>Tipo</th>
                         <th>Operações</th>
 
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,10 @@
                             <td><?= htmlspecialchars($usuario['Email']) ?></td>
                             <td><?= htmlspecialchars($usuario['Tipo']) ?></td>
                             <td>
-                                <a href="<?=  URL_BASE ?>/rota/?id=<?= $usuario['IdUsuario'] ?> ?>">Editar</a> I <a href="">Excluir</a>
+                                <a href="<?= URL_BASE ?>/usuarios/editar?idUsuario=<?= $usuario['IdUsuario'] ?>"
+                                    class="btn btn-warning">
+                                    Editar
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
