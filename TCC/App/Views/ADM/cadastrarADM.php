@@ -14,7 +14,16 @@
     <div class="card shadow-sm col-md-8 mx-auto mt-4">
         <div class="card-body p-4">
 
-            <h3 class="mb-4">Cadastrar Trabalhador</h3>
+            <h3 class="mb-4">Cadastrar Administrador</h3>
+
+
+             <?php if (!empty($erros)): ?>
+                <div class="alert alert-danger">
+                    <?php foreach ($erros as $erro): ?>
+                        <div><?= htmlspecialchars($erro) ?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
             <form action="<?= URL_BASE ?>/usuarios/salvarAdm" method="post">
 

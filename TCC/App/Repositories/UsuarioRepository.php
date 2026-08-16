@@ -137,8 +137,8 @@ class UsuarioRepository
 
             $stmt->execute([
                 ':idTrabalhador' => $idUsuario,
-                ':classe' => $trabalhador['Classe'],
-                ':status' => 'off'
+                ':classe' => 1,
+                ':status' => 'ATIVO'
             ]);
 
             $this->conn->commit();

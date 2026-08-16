@@ -16,6 +16,7 @@ class Validador
         return $this;
     }
 
+
     public function email(string $campo, string $email, ?string $mensagem = null)
     {
         if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -51,6 +52,28 @@ class Validador
     {
         if (!empty($valor) && strlen($valor) > $maximo) {
             $this->erros[$campo] = $mensagem ?? "O campo {$campo} deve ter no máximo {$maximo} caracteres";
+        }
+
+        return $this;
+    }
+
+    public function idadeMinima(string $campo, ?string $dataNascimento, int $idadeMinima = 18, ?string $mensagem = null)
+    {
+        if (empty($dataNascimento)) {
+            return $this;
+        }
+
+        $nascimento = \DateTime::createFromFormat('Y-m-d', $dataNascimento);
+
+        if (!$nascimento) {
+            $this->erros[$campo] = $mensagem ?? "Data de nascimento inválida";
+            return $this;
+        }
+
+        $idade = $nascimento->diff(new \DateTime())->y;
+
+        if ($idade < $idadeMinima) {
+            $this->erros[$campo] = $mensagem ?? "Não aceitamos menores de {$idadeMinima} anos";
         }
 
         return $this;

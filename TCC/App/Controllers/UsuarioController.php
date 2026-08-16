@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\UsuarioService;
+use App\Helpers\Validador;
 
 class UsuarioController extends Controller
 {
@@ -20,26 +21,6 @@ class UsuarioController extends Controller
     {
 
         $this->view('Usuarios/cadastrarUsuario');
-    }
-    public function salvar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->redirect('/usuarios');
-        }
-
-        $usuario = [
-            'Nome'           => trim($_POST['nome'] ?? ''),
-            'CPF'            => trim($_POST['cpf'] ?? ''),
-            'Genero'         => $_POST['genero'] ?? null,
-            'Email'          => trim($_POST['email'] ?? ''),
-            'Senha'          => $_POST['senha'] ?? '',
-            'DataNascimento' => $_POST['dataNascimento'] ?? null,
-            'FotoPerfil'     => trim($_POST['fotoPerfil'] ?? ''),
-            'Endereco'       => trim($_POST['endereco'] ?? ''),
-        ];
-        $this->service->salvar($usuario);
-
-        return $this->redirect('/usuarios');
     }
 
     public function salvarTrabalhador()
@@ -58,6 +39,28 @@ class UsuarioController extends Controller
             'FotoPerfil'     => trim($_POST['fotoPerfil'] ?? ''),
             'Endereco'       => trim($_POST['endereco'] ?? ''),
         ];
+
+        $validador = new Validador();
+        // fiz encadeado pra nao ter que repetir validador a cada coisa que eu tenho que validar aqui
+        $validador
+            ->obrigatorio('nome', $trabalhador['Nome'])
+            ->obrigatorio('cpf', $trabalhador['CPF'])
+            ->cpf('cpf', $trabalhador['CPF'])
+            ->obrigatorio('email', $trabalhador['Email'])
+            ->email('email', $trabalhador['Email'])
+            ->obrigatorio('senha', $trabalhador['Senha'])
+            ->minLength('senha', $trabalhador['Senha'], 6)
+            ->obrigatorio('dataNascimento', $trabalhador['DataNascimento'])
+            ->idadeMinima('dataNascimento', $trabalhador['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
+            ->maxLength('endereco', $trabalhador['Endereco'], 255);
+
+        if ($validador->temErros()) {
+            return $this->view('Trabalhador/cadastrarTrabalhador', [
+                'erros'   => $validador->getErros(),
+                'usuario' => $trabalhador,
+            ]);
+        }
+
 
         $this->service->salvarTrabalhador($trabalhador);
 
@@ -80,6 +83,29 @@ class UsuarioController extends Controller
             'FotoPerfil'     => trim($_POST['fotoPerfil'] ?? ''),
             'Endereco'       => trim($_POST['endereco'] ?? ''),
         ];
+
+        $validador = new Validador();
+
+        $validador
+            ->obrigatorio('nome', $adm['Nome'])
+            ->obrigatorio('cpf', $adm['CPF'])
+            ->cpf('cpf', $adm['CPF'])
+            ->obrigatorio('email', $adm['Email'])
+            ->email('email', $adm['Email'])
+            ->obrigatorio('senha', $adm['Senha'])
+            ->minLength('senha', $adm['Senha'], 6)
+            ->obrigatorio('dataNascimento', $adm['DataNascimento'])
+            ->idadeMinima('dataNascimento', $adm['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
+            ->maxLength('endereco', $adm['Endereco'], 255);
+
+        if ($validador->temErros()) {
+            return $this->view('Trabalhador/cadastrarTrabalhador', [
+                'erros'   => $validador->getErros(),
+                'usuario' => $adm,
+            ]);
+        }
+
+
 
         $this->service->salvarAdm($adm);
 
@@ -120,6 +146,28 @@ class UsuarioController extends Controller
             'FotoPerfil' => trim($_POST['fotoPerfil'] ?? ''),
             'Endereco' => trim($_POST['endereco'] ?? '')
         ];
+
+        $validador = new validador();
+        $validador
+            ->obrigatorio('nome', $usuario['Nome'])
+            ->obrigatorio('cpf', $usuario['CPF'])
+            ->cpf('cpf', $usuario['CPF'])
+            ->obrigatorio('email', $usuario['Email'])
+            ->email('email', $usuario['Email'])
+            ->obrigatorio('senha', $usuario['Senha'])
+            ->minLength('senha', $usuario['Senha'], 6)
+            ->obrigatorio('dataNascimento', $usuario['DataNascimento'])
+            ->idadeMinima('dataNascimento', $usuario['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
+            ->maxLength('endereco', $usuario['Endereco'], 255);
+
+      
+         if ($validador->temErros()) {
+            return $this->view('usuario/editarUsuario', [
+                'erros'   => $validador->getErros(),
+                'usuario' => $usuario,
+            ]);
+        }
+///pq caralhos a validacao de editar nao ta funcionando unhe 
 
         $this->service->atualizar($usuario);
 

@@ -19,10 +19,19 @@ $usuario = $usuario ?? [];
 
         <div class="card shadow-sm">
 
-            <div class="card-header">
-                <h4 class="mb-0">Editar Usuário</h4>
-            </div>
+        <!-- mds oq q ta errado nessa budega -->
 
+            <div class="card-header">  
+                <h4 class="mb-0">
+                    <?php if ($usuario['Tipo'] === 'Trabalhador'): ?>
+                        Editar Trabalhador
+                    <?php elseif ($usuario['Tipo'] === 'ADM'): ?>
+                        Editar Administrador
+                    <?php else: ?>
+                        Editar Usuário
+                    <?php endif; ?>
+                </h4>
+            </div>
             <div class="card-body">
 
                 <form action="<?= URL_BASE ?>/usuarios/atualizar" method="post">

@@ -16,6 +16,14 @@
 
             <h3 class="mb-4">Cadastrar Trabalhador</h3>
 
+             <?php if (!empty($erros)): ?>
+                <div class="alert alert-danger">
+                    <?php foreach ($erros as $erro): ?>
+                        <div><?= htmlspecialchars($erro) ?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <form action="<?= URL_BASE ?>/usuarios/salvarTrabalhador" method="post">
 
                 <!-- NOME -->
@@ -51,7 +59,7 @@
                         id="cpf"
                         name="cpf"
                         placeholder="000.000.000-00"
-                        maxlength="14"
+                        maxlength="11"
                         value="<?= htmlspecialchars($usuario['CPF'] ?? '') ?>">
 
                     <?php if (isset($erros['cpf'])): ?>
