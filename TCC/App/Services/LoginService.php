@@ -13,21 +13,6 @@ class LoginService
         $this->usuarioService = new UsuarioService();
     }
 
-    public function validarLogin(?string $email, ?string $senha): array
-    {
-        $erros = [];
-
-        if (empty($email)) {
-            $erros[] = "O e-mail é obrigatório.";
-        }
-
-        if (empty($senha)) {
-            $erros[] = "A senha é obrigatória.";
-        }
-
-        return $erros;
-    }
-
     public function autenticar(string $email, string $senha): ?array
     {
         $usuario = $this->usuarioService->buscarPorEmail($email);

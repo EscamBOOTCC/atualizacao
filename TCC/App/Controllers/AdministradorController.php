@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Core\Controller;    
+use App\Core\Controller;
 //use App\Services\AutenticacaoService;
 
 class AdministradorController extends Controller
 {
-    public function acessarPainelDeControle()
+    public function dashboard()
     {
-        //implementar
+        $this->autenticacaoRequired();
+        $this->adminRequired();
+
+        return $this->view('ADM/DashboardAdm');
     }
 
     public function moderarConteudo()
@@ -22,7 +25,7 @@ class AdministradorController extends Controller
         //implementar
     }
 
-    public function aplicarPenalidade() 
+    public function aplicarPenalidade()
     {
         //implementar
     }

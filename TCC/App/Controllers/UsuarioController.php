@@ -19,7 +19,6 @@ class UsuarioController extends Controller
 
     public function cadastrarUsuarios()
     {
-
         $this->view('Usuarios/cadastrarUsuario');
     }
 
@@ -113,7 +112,8 @@ class UsuarioController extends Controller
     }
 
     public function editar()
-    {
+    {   
+        $this->adminRequired();
         $this->autenticacaoRequired();
 
         if (!isset($_GET['idUsuario'])) {
@@ -130,8 +130,6 @@ class UsuarioController extends Controller
     }
     public function atualizar()
     {
-        $this->autenticacaoRequired();
-
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return $this->redirect('/usuarios');
         }
@@ -166,7 +164,6 @@ class UsuarioController extends Controller
                 'usuario' => $usuario,
             ]);
         }
-///pq caralhos a validacao de editar nao ta funcionando unhe 
 
         $this->service->atualizar($usuario);
 
@@ -175,33 +172,42 @@ class UsuarioController extends Controller
 
     public function cadastrarAdm()
     {
+        $this->autenticacaoRequired();
+        $this->adminRequired();
+   
         return $this->view('ADM/cadastrarADM');
     }
     public function cadastrarTrabalhador()
     {
+        $this->autenticacaoRequired();
+        $this->adminRequired();
         return $this->view('Trabalhador/cadastrarTrabalhador');
     }
     public function listarTodosUsuarios()
     {
+        $this->autenticacaoRequired();
+        $this->adminRequired();
+        
+
         $usuario = $this->service->listarTodos();
 
         return $this->view('Usuarios/listarTodos', ['usuarios' => $usuario]);
     }
 
-    public function listarUsuario()
-    {
-        if (! isset($_GET['idUsuario'])) {
-            return $this->redirect('/');
-        }
+    // public function listarUsuario()
+    // {
+    //     if (! isset($_GET['idUsuario'])) {
+    //         return $this->redirect('/');
+    //     }
 
-        $usuario = $this->service->buscarPorId($_GET['id']);
+    //     $usuario = $this->service->buscarPorId($_GET['id']);
 
-        if (! $usuario) {
-            return $this->redirect('/');
-        }
+    //     if (! $usuario) {
+    //         return $this->redirect('/');
+    //     }
 
-        return $this->view('/listar', ['usuario' => $usuario]);
-    }
+    //     return $this->view('/listar', ['usuario' => $usuario]);
+    // }
 
     public function deletarUsuario()
     {

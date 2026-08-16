@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\LoginService;
+use App\Helpers\Validador;
 
 class LoginController extends Controller
 {
@@ -16,40 +17,52 @@ class LoginController extends Controller
 
     public function login()
     {
-        return $this->view('Login/Login'); //define rota
+        return $this->view('Login/Login');
     }
 
     public function autenticar()
     {
-        $email = trim($_POST['email'] ?? ''); //recebe os valores que o usuario digitar
+        $email = trim($_POST['email'] ?? '');
         $senha = $_POST['senha'] ?? '';
 
-        $erros = $this->loginService->validarLogin($email, $senha); // encaminha a validação pra camada service, se ela nao retornar nenhum erro continua
+        $validador = new Validador();
 
-        if (!$erros) {
-            $usuario = $this->loginService->autenticar($email, $senha); //verifica no banco
+        $validador
+            ->obrigatorio('email', $email)
+            ->obrigatorio('senha', $senha);
 
-            if ($usuario) {
-                $this->loginService->salvarUsuarioSessao($usuario); 
-
-                if ($usuario['Tipo'] === 'adm') {
-                    return $this->redirect(URL_BASE . '/adm'); //se for adm ele usa a view de adm na router
-                }
-
-                return $this->redirect(URL_BASE . '/trabalhador'); // se nao ele usa a trabalhador, proavelmente deveria alterar a letra maiuscula mas isso é dor de cabeça pra depois
-            }
-
-            $erros[] = "E-mail ou senha inválidos."; ///se nao tiver na base de dados e/ou a senha e email estiver errada ele retorna isso
+        if ($validador->temErros()) {
+            return $this->view('Login/Login', [
+                'erros' => $validador->getErros(),
+                'email' => $email
+            ]);
         }
 
-        return $this->view('Login/Login', ['erros' => $erros, 'email' => $email]);
+        $usuario = $this->loginService->autenticar($email, $senha);
+
+        if (!$usuario) {
+            return $this->view('Login/Login', [
+                'erros' => [
+                    'login' => 'E-mail ou senha inválidos.'
+                ],
+                'email' => $email
+            ]);
+        }
+
+        $this->loginService->salvarUsuarioSessao($usuario);
+
+        if ($usuario['Tipo'] === 'adm') {
+            return $this->redirect(URL_BASE . '/adm');
+        }
+
+        return $this->redirect(URL_BASE . '/trabalhador');
     }
 
     public function logout()
     {
         $this->loginService->apagarDadosSessao();
 
-        return $this->redirect(URL_BASE . '/login'); ///para ele poder sair do perfil adm/trabahador
+        return $this->redirect(URL_BASE . '/login');
     }
 
     public function getNomeUsuarioLogado()

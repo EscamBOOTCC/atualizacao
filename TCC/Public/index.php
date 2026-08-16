@@ -29,5 +29,6 @@ $router->post('/usuarios/atualizar', 'UsuarioController@atualizar');
 
 // Outras rotas
 $router->get('/acordo', 'AcordoController@formalizarAcordo');
+$router->get('/adm', 'AdministradorController@dashboard');
 
 $router->run();

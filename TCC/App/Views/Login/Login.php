@@ -14,13 +14,21 @@
         <div class="card-body p-4">
 
             <h4 class="text-center mb-4">EscamBOO</h4>
-
+<!-- erros comuns -->
             <?php if (!empty($erros)): ?>
                 <div class="alert alert-danger">
                     <?php foreach ($erros as $erro): ?>
-                        <div><?= htmlspecialchars($erro) ?></div>
+                        <div><?= htmlspecialchars($erro) ?></div>  
                     <?php endforeach; ?>
                 </div>
+            <?php endif; ?>
+<!-- erros de session -->
+            <?php if (isset($_SESSION['erro'])): ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($_SESSION['erro']) ?>
+                </div>
+
+                <?php unset($_SESSION['erro']); ?>
             <?php endif; ?>
 
             <form action="<?= URL_BASE ?>/login" method="post">

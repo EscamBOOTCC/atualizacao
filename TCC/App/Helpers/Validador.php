@@ -79,6 +79,10 @@ class Validador
         return $this;
     }
 
+    public function admLogado(){
+        //implementar
+    }
+
     public function temErros() : bool 
     {
         return !empty($this->erros);
