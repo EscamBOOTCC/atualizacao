@@ -154,15 +154,14 @@ class UsuarioController extends Controller
             ->cpf('cpf', $usuario['CPF'])
             ->obrigatorio('email', $usuario['Email'])
             ->email('email', $usuario['Email'])
-            ->obrigatorio('senha', $usuario['Senha'])
-            ->minLength('senha', $usuario['Senha'], 6)
+            //nao precisa de senha aqui pq por agora a gente nao ta dando opcao de editar a senha. 
             ->obrigatorio('dataNascimento', $usuario['DataNascimento'])
             ->idadeMinima('dataNascimento', $usuario['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
             ->maxLength('endereco', $usuario['Endereco'], 255);
 
       
          if ($validador->temErros()) {
-            return $this->view('usuario/editarUsuario', [
+            return $this->view('Usuarios/editarUsuario', [
                 'erros'   => $validador->getErros(),
                 'usuario' => $usuario,
             ]);

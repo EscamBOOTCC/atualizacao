@@ -22,15 +22,18 @@ $usuario = $usuario ?? [];
         <!-- mds oq q ta errado nessa budega -->
 
             <div class="card-header">  
+
+             <?php if (!empty($erros)): ?>
+                <div class="alert alert-danger">
+                    <?php foreach ($erros as $erro): ?>
+                        <div><?= htmlspecialchars($erro) ?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
                 <h4 class="mb-0">
-                    <?php if ($usuario['Tipo'] === 'Trabalhador'): ?>
-                        Editar Trabalhador
-                    <?php elseif ($usuario['Tipo'] === 'ADM'): ?>
-                        Editar Administrador
-                    <?php else: ?>
-                        Editar Usuário
-                    <?php endif; ?>
+                     Editar Usuário
                 </h4>
+
             </div>
             <div class="card-body">
 
@@ -47,7 +50,7 @@ $usuario = $usuario ?? [];
                             id="nome"
                             name="nome"
                             value="<?= htmlspecialchars($usuario['Nome'] ?? '') ?>"
-                            required>
+                            >
                     </div>
 
                     <div class="mb-3">
@@ -57,8 +60,9 @@ $usuario = $usuario ?? [];
                             class="form-control"
                             id="cpf"
                             name="cpf"
+                            maxlength="11"
                             value="<?= htmlspecialchars($usuario['CPF'] ?? '') ?>"
-                            required>
+                            >
                     </div>
 
                     <div class="mb-3">
@@ -69,7 +73,7 @@ $usuario = $usuario ?? [];
                             id="email"
                             name="email"
                             value="<?= htmlspecialchars($usuario['Email'] ?? '') ?>"
-                            required>
+                            >
                     </div>
 
                     <div class="mb-3">
