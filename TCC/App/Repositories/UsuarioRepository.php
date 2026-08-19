@@ -129,16 +129,16 @@ class UsuarioRepository
 
             // Depois cria o trabalhador usando o mesmo ID
             $sql = "INSERT INTO Trabalhador
-                        (IdTrabalhador, Classe, `Status`)
+                        (IdTrabalhador, Classe, `StatusAcordo`)
                     VALUES
-                        (:idTrabalhador, :classe, :status)";
+                        (:idTrabalhador, :classe, :statusAcordo)";
 
             $stmt = $this->conn->prepare($sql);
 
             $stmt->execute([
                 ':idTrabalhador' => $idUsuario,
                 ':classe' => 1,
-                ':status' => 'ATIVO'
+                ':statusAcordo' => 'ATIVO'
             ]);
 
             $this->conn->commit();

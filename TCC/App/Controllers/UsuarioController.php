@@ -22,6 +22,8 @@ class UsuarioController extends Controller
         $this->view('Usuarios/cadastrarUsuario');
     }
 
+    ///tem que jogar fora 
+
     public function salvarTrabalhador()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -51,7 +53,8 @@ class UsuarioController extends Controller
             ->minLength('senha', $trabalhador['Senha'], 6)
             ->obrigatorio('dataNascimento', $trabalhador['DataNascimento'])
             ->idadeMinima('dataNascimento', $trabalhador['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
-            ->maxLength('endereco', $trabalhador['Endereco'], 255);
+            ->maxLength('endereco', $trabalhador['Endereco'], 255)
+            ->obrigatorio('endereco', $trabalhador['Endereco']);
 
         if ($validador->temErros()) {
             return $this->view('Trabalhador/cadastrarTrabalhador', [
@@ -95,7 +98,9 @@ class UsuarioController extends Controller
             ->minLength('senha', $adm['Senha'], 6)
             ->obrigatorio('dataNascimento', $adm['DataNascimento'])
             ->idadeMinima('dataNascimento', $adm['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
-            ->maxLength('endereco', $adm['Endereco'], 255);
+            ->maxLength('endereco', $adm['Endereco'], 255)
+            ->obrigatorio('endereco', $adm['Endereco']);
+
 
         if ($validador->temErros()) {
             return $this->view('Trabalhador/cadastrarTrabalhador', [
@@ -112,7 +117,7 @@ class UsuarioController extends Controller
     }
 
     public function editar()
-    {   
+    {
         $this->adminRequired();
         $this->autenticacaoRequired();
 
@@ -128,6 +133,9 @@ class UsuarioController extends Controller
 
         return $this->view('Usuarios/editarUsuario', ['usuario' => $usuario]);
     }
+
+
+
     public function atualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -155,10 +163,13 @@ class UsuarioController extends Controller
             //nao precisa de senha aqui pq por agora a gente nao ta dando opcao de editar a senha. 
             ->obrigatorio('dataNascimento', $usuario['DataNascimento'])
             ->idadeMinima('dataNascimento', $usuario['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
-            ->maxLength('endereco', $usuario['Endereco'], 255);
+            ->maxLength('endereco', $usuario['Endereco'], 255)
+            ->obrigatorio('endereco', $usuario['Endereco']);
+        //falta o genero que é um select
 
-      
-         if ($validador->temErros()) {
+
+
+        if ($validador->temErros()) {
             return $this->view('Usuarios/editarUsuario', [
                 'erros'   => $validador->getErros(),
                 'usuario' => $usuario,
@@ -174,7 +185,7 @@ class UsuarioController extends Controller
     {
         $this->autenticacaoRequired();
         $this->adminRequired();
-   
+
         return $this->view('ADM/cadastrarADM');
     }
     public function cadastrarTrabalhador()
@@ -187,7 +198,7 @@ class UsuarioController extends Controller
     {
         $this->autenticacaoRequired();
         $this->adminRequired();
-        
+
 
         $usuario = $this->service->listarTodos();
 

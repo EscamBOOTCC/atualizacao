@@ -169,6 +169,9 @@ CREATE TABLE IF NOT EXISTS Acordo
         ON DELETE CASCADE
 );
 
+---Alterações 
+
+
 ALTER TABLE Trabalhador
 MODIFY Status VARCHAR(10);
 
@@ -188,5 +191,22 @@ VALUES
 (12),
 (13),
 (14);
+
+--novas alteraçoes
+
+ALTER TABLE Trabalhador
+RENAME COLUMN status TO StatusAcordo;
+
+ALTER TABLE Usuario
+ADD COLUMN Ativo BOOLEAN;
+
+
+UPDATE Usuario
+SET Ativo = TRUE
+WHERE IdUsuario IN (10, 11, 12, 13, 14, 15);
+
+
+--
+
 
 -- sempre rodar o gerar_hashes.php dps de inicializar o banco, copiar o codigo que ele devolve e rodar direto no banco, gambiarra das boas 

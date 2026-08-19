@@ -37,8 +37,10 @@ class UsuarioService
     {
         return $this->repository->salvarAdm($adm);
     }
+
+    //generelizado pq o listar atual, lista TODOS os usuarios, e o editar, é chamado pelo view do listar usuario, por um botao
     public function atualizar($usuario)
-{
-    return $this->repository->atualizar($usuario);
-}
+    {
+        return $this->repository->atualizar($usuario);
+    }
 }

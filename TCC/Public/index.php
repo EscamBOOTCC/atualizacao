@@ -7,6 +7,8 @@ use App\Core\Router;
 
 $router = new Router();
 
+\App\Database\ConnectionFactory::getConnection();
+
 // Rotas principais
 $router->get('/', 'LoginController@login');
 
