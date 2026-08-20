@@ -92,6 +92,11 @@
                 <a href="<?= URL_BASE ?>/logout" class="text-danger">
                     Sair
                 </a>
+                <a href="<?= URL_BASE ?>/logout" class="text-danger">
+                    excluir conta
+                </a>
+
+                <!-- exigir senha de adm e span de confirmaçao-->
 
             </aside>
 
@@ -159,11 +164,11 @@
 
                                 <div>
                                     <small class="text-muted">
-                                        Trabalhadores
+                                        Acordos Ativos
                                     </small>
 
                                     <h3 class="fw-bold mt-2 mb-0">
-                                        18
+                                        0
                                     </h3>
                                 </div>
 

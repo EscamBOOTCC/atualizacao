@@ -16,8 +16,7 @@
 
             <h3 class="mb-4">Cadastrar Administrador</h3>
 
-
-             <?php if (!empty($erros)): ?>
+            <?php if (!empty($erros)): ?>
                 <div class="alert alert-danger">
                     <?php foreach ($erros as $erro): ?>
                         <div><?= htmlspecialchars($erro) ?></div>
@@ -100,10 +99,16 @@
 
                     <input
                         type="date"
-                        class="form-control"
+                        class="form-control <?= isset($erros['dataNascimento']) ? 'is-invalid' : '' ?>"
                         id="dataNascimento"
                         name="dataNascimento"
                         value="<?= htmlspecialchars($usuario['DataNascimento'] ?? '') ?>">
+
+                    <?php if (isset($erros['dataNascimento'])): ?>
+                        <div class="invalid-feedback">
+                            <?= htmlspecialchars($erros['dataNascimento']) ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
 
@@ -114,7 +119,7 @@
                     </label>
 
                     <select
-                        class="form-select"
+                        class="form-select <?= isset($erros['genero']) ? 'is-invalid' : '' ?>"
                         id="genero"
                         name="genero">
 
@@ -139,6 +144,12 @@
                         </option>
 
                     </select>
+
+                    <?php if (isset($erros['genero'])): ?>
+                        <div class="invalid-feedback">
+                            <?= htmlspecialchars($erros['genero']) ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
 
@@ -150,10 +161,16 @@
 
                     <input
                         type="text"
-                        class="form-control"
+                        class="form-control <?= isset($erros['endereco']) ? 'is-invalid' : '' ?>"
                         id="endereco"
                         name="endereco"
                         value="<?= htmlspecialchars($usuario['Endereco'] ?? '') ?>">
+
+                    <?php if (isset($erros['endereco'])): ?>
+                        <div class="invalid-feedback">
+                            <?= htmlspecialchars($erros['endereco']) ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
 
@@ -165,10 +182,16 @@
 
                     <input
                         type="url"
-                        class="form-control"
+                        class="form-control <?= isset($erros['fotoPerfil']) ? 'is-invalid' : '' ?>"
                         id="fotoPerfil"
                         name="fotoPerfil"
                         value="<?= htmlspecialchars($usuario['FotoPerfil'] ?? '') ?>">
+
+                    <?php if (isset($erros['fotoPerfil'])): ?>
+                        <div class="invalid-feedback">
+                            <?= htmlspecialchars($erros['fotoPerfil']) ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
 

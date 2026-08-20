@@ -54,7 +54,8 @@ class UsuarioController extends Controller
             ->obrigatorio('dataNascimento', $trabalhador['DataNascimento'])
             ->idadeMinima('dataNascimento', $trabalhador['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
             ->maxLength('endereco', $trabalhador['Endereco'], 255)
-            ->obrigatorio('endereco', $trabalhador['Endereco']);
+            ->obrigatorio('endereco', $trabalhador['Endereco'])
+            ->imagem('fotoPerfil', $trabalhador['FotoPerfil']);
 
         if ($validador->temErros()) {
             return $this->view('Trabalhador/cadastrarTrabalhador', [
@@ -99,7 +100,8 @@ class UsuarioController extends Controller
             ->obrigatorio('dataNascimento', $adm['DataNascimento'])
             ->idadeMinima('dataNascimento', $adm['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
             ->maxLength('endereco', $adm['Endereco'], 255)
-            ->obrigatorio('endereco', $adm['Endereco']);
+            ->obrigatorio('endereco', $adm['Endereco'])
+            ->imagem('fotoPerfil', $adm['FotoPerfil']);
 
 
         if ($validador->temErros()) {
@@ -151,6 +153,7 @@ class UsuarioController extends Controller
             'DataNascimento' => $_POST['dataNascimento'] ?? null,
             'FotoPerfil' => trim($_POST['fotoPerfil'] ?? ''),
             'Endereco' => trim($_POST['endereco'] ?? '')
+
         ];
 
         $validador = new validador();
@@ -164,7 +167,8 @@ class UsuarioController extends Controller
             ->obrigatorio('dataNascimento', $usuario['DataNascimento'])
             ->idadeMinima('dataNascimento', $usuario['DataNascimento'], 18, 'Não aceitamos menores de 18 anos')
             ->maxLength('endereco', $usuario['Endereco'], 255)
-            ->obrigatorio('endereco', $usuario['Endereco']);
+            ->obrigatorio('endereco', $usuario['Endereco'])
+            ->imagem('fotoPerfil', $usuario['FotoPerfil']);
         //falta o genero que é um select
 
 
@@ -204,22 +208,6 @@ class UsuarioController extends Controller
 
         return $this->view('Usuarios/listarTodos', ['usuarios' => $usuario]);
     }
-
-    // public function listarUsuario()
-    // {
-    //     if (! isset($_GET['idUsuario'])) {
-    //         return $this->redirect('/');
-    //     }
-
-    //     $usuario = $this->service->buscarPorId($_GET['id']);
-
-    //     if (! $usuario) {
-    //         return $this->redirect('/');
-    //     }
-
-    //     return $this->view('/listar', ['usuario' => $usuario]);
-    // }
-
     public function deletarUsuario()
     {
         //Implementar

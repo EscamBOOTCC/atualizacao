@@ -1,13 +1,13 @@
-<?php 
+<?php
 
 namespace app\helpers;
 
-class Validador 
+class Validador
 {
 
     private array $erros = [];
 
-    public function obrigatorio(string $campo, mixed $valor, ?string $mensagem = null) 
+    public function obrigatorio(string $campo, mixed $valor, ?string $mensagem = null)
     {
         if (empty($valor) && $valor !== '0') {
             $this->erros[$campo] = $mensagem ?? "O campo {$campo} é obrigatório";
@@ -78,12 +78,21 @@ class Validador
 
         return $this;
     }
+    public function imagem($campo, $valor)
+    {
+        if (empty($valor)) {
+            $this->erros[$campo] = "O link da imagem é obrigatório.";
+            return false;
+        }
 
-    public function admLogado(){
-        //implementar
+        if (!filter_var($valor, FILTER_VALIDATE_URL)) {
+            $this->erros[$campo] = "Informe um link válido.";
+            return false;
+        }
+
+        return true;
     }
-
-    public function temErros() : bool 
+    public function temErros(): bool
     {
         return !empty($this->erros);
     }
@@ -92,5 +101,4 @@ class Validador
     {
         return $this->erros;
     }
-
 }
