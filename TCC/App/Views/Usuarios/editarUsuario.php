@@ -119,7 +119,7 @@ $usuario = $usuario ?? [];
 
             <div class="card-body">
 
-                <form action="<?= URL_BASE ?>/usuarios/atualizar" method="post">
+                <form action="<?= URL_BASE ?>/usuarios/editar" method="post">
 
                     <input
                         type="hidden"
