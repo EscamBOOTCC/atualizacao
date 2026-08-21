@@ -233,7 +233,7 @@
                                     </small>
 
                                     <h3 class="fw-bold mt-2 mb-0">
-                                        25
+                                        ?
                                     </h3>
                                 </div>
 
@@ -260,7 +260,7 @@
                                     </small>
 
                                     <h3 class="fw-bold mt-2 mb-0">
-                                        0
+                                        ?
                                     </h3>
                                 </div>
 
@@ -287,7 +287,7 @@
                                     </small>
 
                                     <h3 class="fw-bold mt-2 mb-0">
-                                        7
+                                        ?
                                     </h3>
                                 </div>
 

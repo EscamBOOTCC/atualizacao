@@ -175,8 +175,6 @@ CREATE TABLE IF NOT EXISTS Acordo
 ALTER TABLE Trabalhador
 MODIFY Status VARCHAR(10);
 
-USE EscamBOO;
-
 --novas alteraçoes
 
 ALTER TABLE Trabalhador
@@ -189,4 +187,3 @@ ALTER TABLE Usuario
 MODIFY FotoPerfil TEXT;
 
 --
-
