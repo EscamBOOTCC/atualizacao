@@ -43,4 +43,9 @@ class UsuarioService
     {
         return $this->repository->atualizar($usuario);
     }
+
+    public function alterarStatus(int $idUsuario, bool $ativo)
+    {
+        return $this->repository->alterarStatus($idUsuario, $ativo);
+    }
 }

@@ -8,22 +8,32 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
         body {
-            background-color: #f5f6fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: #D9CAB3;
+            min-height: 100vh;
+            color: #2b2b2b;
         }
+
+        /* MENU LATERAL */
 
         .sidebar {
             min-height: 100vh;
-            background-color: #212529;
+            background-color: #580816;
         }
 
         .sidebar h4 {
-            color: white;
+            color: #f1e9db;
+            font-weight: bolder;
+            font-size: 45px;
         }
 
         .sidebar a {
-            color: #ced4da;
+            color: #e2d2be;
             text-decoration: none;
             display: block;
             padding: 10px 15px;
@@ -32,25 +42,106 @@
         }
 
         .sidebar a:hover {
-            background-color: #343a40;
-            color: white;
+            background-color: #40050f;
+            color: #ffffff;
         }
+
+        /* CARDS */
 
         .dashboard-card {
             border: none;
             border-radius: 12px;
+            background-color: #f1e9db;
+            color: #3b080f;
         }
 
         .action-card {
             border: none;
             border-radius: 12px;
+            background-color: #f1e9db;
+            color: #3b080f;
             transition: 0.2s;
             cursor: pointer;
         }
 
         .action-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* CARD PRINCIPAL DE GERENCIAMENTO */
+
+        .card {
+            background-color: #f1e9db;
+            color: #3b080f;
+            border-radius: 12px !important;
+        }
+
+        /* TÍTULOS */
+
+        .card-body h4 {
+            color: #580816;
+        }
+
+        .card-body h5 {
+            color: #580816;
+        }
+
+        .card-body h6 {
+            color: #580816;
+        }
+
+        /* SUB-CARDS */
+
+        .card-body .border {
+            border-color: #d1c4b2 !important;
+            background-color: #ffffff;
+            border-radius: 10px !important;
+        }
+
+        /* TEXTOS */
+
+        .card-body .text-muted {
+            color: #6c5a4c !important;
+        }
+
+        main>div .text-muted {
+            color: #6c5a4c !important;
+        }
+
+        /* BOTÃO PRINCIPAL */
+
+        .btn-dark {
+            background-color: #580816 !important;
+            border-color: #580816 !important;
+            color: #ffffff !important;
+            border-radius: 6px;
+        }
+
+        .btn-dark:hover {
+            background-color: #40050f !important;
+            border-color: #40050f !important;
+        }
+
+        /* BOTÃO SECUNDÁRIO */
+
+        .btn-outline-dark {
+            color: #580816 !important;
+            border-color: #580816 !important;
+            background-color: transparent !important;
+            border-radius: 6px;
+        }
+
+        .btn-outline-dark:hover {
+            background-color: #580816 !important;
+            color: #ffffff !important;
+        }
+
+        /* BADGE */
+
+        .badge.bg-dark {
+            background-color: #580816 !important;
+            border-radius: 20px;
         }
     </style>
 </head>
@@ -79,21 +170,22 @@
                     Usuários
                 </a>
 
-                <a href="<?= URL_BASE ?>/usuarios/cadastrarAdm">
+                <a href="<?= URL_BASE ?>/adm/cadastrar">
                     Cadastrar ADM
                 </a>
 
-                <a href="<?= URL_BASE ?>/usuarios/cadastrarTrabalhador">
+                <a href="<?= URL_BASE ?>/trabalhador/cadastrar">
                     Cadastrar Trabalhador
+                </a>
+
+                <a href="<?= URL_BASE ?>/grandes-areas">
+                    Gerenciar Grandes Áreas
                 </a>
 
                 <hr class="text-secondary">
 
                 <a href="<?= URL_BASE ?>/logout" class="text-danger">
                     Sair
-                </a>
-                <a href="<?= URL_BASE ?>/logout" class="text-danger">
-                    excluir conta
                 </a>
 
                 <!-- exigir senha de adm e span de confirmaçao-->
@@ -248,7 +340,7 @@
                     <!-- CADASTRAR ADM -->
                     <div class="col-md-6 col-lg-4">
 
-                        <a href="<?= URL_BASE ?>/usuarios/cadastrarAdm" class="text-decoration-none text-dark">
+                        <a href="<?= URL_BASE ?>/adm/cadastrar" class="text-decoration-none text-dark">
 
                             <div class="card action-card shadow-sm h-100 p-4">
 
@@ -274,7 +366,7 @@
                     <!-- CADASTRAR TRABALHADOR -->
                     <div class="col-md-6 col-lg-4">
 
-                        <a href="<?= URL_BASE ?>/usuarios/cadastrarTrabalhador" class="text-decoration-none text-dark">
+                        <a href="<?= URL_BASE ?>/trabalhador/cadastrar" class="text-decoration-none text-dark">
 
                             <div class="card action-card shadow-sm h-100 p-4">
 
@@ -367,4 +459,3 @@
 </body>
 
 </html>
-```

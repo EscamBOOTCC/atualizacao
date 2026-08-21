@@ -4,14 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Trabalhador</title>
+    <title>Cadastrar Administrador</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #D9CAB3;
+            min-height: 100vh;
+            color: #2b2b2b;
+        }
+
+        .card {
+            border: none;
+            border-radius: 24px !important;
+            background-color: #f3ede2;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 30px !important;
+        }
+
+        h3 {
+            color: #550a16;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-label {
+            color: #550a16;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #d1c1aa;
+            border-radius: 12px;
+            padding: 10px 14px;
+            background-color: #ffffff;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #550a16;
+            box-shadow: 0 0 0 0.2rem rgba(85, 10, 22, 0.15);
+        }
+
+        .form-control.is-invalid,
+        .form-select.is-invalid {
+            border-color: #dc3545;
+        }
+
+        .invalid-feedback {
+            font-size: 0.85rem;
+        }
+
+        .text-danger {
+            color: #a00018 !important;
+        }
+
+        .alert-danger {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .btn-primary {
+            background-color: #550a16;
+            border-color: #550a16;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #3f060f;
+            border-color: #3f060f;
+            color: #ffffff;
+        }
+
+        .btn-outline-secondary {
+            border: 2px solid #550a16;
+            color: #550a16;
+            background-color: transparent;
+            border-radius: 20px;
+            padding: 7px 18px;
+            font-weight: 600;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #550a16;
+            border-color: #550a16;
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="card shadow-sm col-md-8 mx-auto mt-4">
+
         <div class="card-body p-4">
 
             <h3 class="mb-4">Cadastrar Administrador</h3>
@@ -24,8 +122,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="<?= URL_BASE ?>/usuarios/salvarAdm" method="post">
-
+            <form action="<?= URL_BASE ?>/adm/cadastrar" method="post">
                 <!-- NOME -->
                 <div class="mb-3">
                     <label for="nome" class="form-label">
@@ -219,7 +316,7 @@
                 <div class="d-flex gap-2 justify-content-end">
 
                     <a
-                        href="<?= URL_BASE ?>/usuarios"
+                        href="<?= URL_BASE ?>/adm"
                         class="btn btn-outline-secondary">
                         Cancelar
                     </a>
@@ -235,6 +332,7 @@
             </form>
 
         </div>
+
     </div>
 
 </body>

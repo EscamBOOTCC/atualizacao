@@ -7,6 +7,77 @@
     <title>Cadastrar Trabalhador</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #5E0B15 !important;
+            min-height: 100vh;
+            padding-bottom: 40px;
+            color: #2b2b2b;
+        }
+
+        .card {
+            border: none !important;
+            border-radius: 24px !important;
+            background-color: #f3ede2 !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .card-body h3 {
+            color: #550a16;
+            font-weight: 700;
+        }
+
+        .form-label {
+            color: #550a16;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            border: 1px solid #d1c1aa;
+            background-color: #ffffff;
+            padding: 10px 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #550a16;
+            box-shadow: 0 0 0 0.25rem rgba(85, 10, 22, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #550a16 !important;
+            border-color: #550a16 !important;
+            color: #ffffff !important;
+            border-radius: 20px !important;
+            padding: 8px 24px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #3f060f !important;
+            border-color: #3f060f !important;
+        }
+
+        .btn-outline-secondary {
+            color: #550a16 !important;
+            border: 2px solid #550a16 !important;
+            background-color: transparent !important;
+            border-radius: 20px !important;
+            padding: 6px 20px;
+            font-weight: 600;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #550a16 !important;
+            color: #ffffff !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -24,7 +95,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="<?= URL_BASE ?>/usuarios/salvarTrabalhador" method="post">
+            <form action="<?= URL_BASE ?>/trabalhador/cadastrar" method="post">
 
                 <!-- NOME -->
                 <div class="mb-3">
@@ -34,7 +105,7 @@
 
                     <input
                         type="text"
-                        class="form-control <?= isset($erros['nome']) ? 'is-invalid' : '' ?>"
+                        class="form-control <?= isset($erros['nome']) ? 'is-iAnvalid' : '' ?>"
                         id="nome"
                         name="nome"
                         value="<?= htmlspecialchars($usuario['Nome'] ?? '') ?>">

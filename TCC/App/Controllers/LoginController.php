@@ -5,14 +5,17 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Services\LoginService;
 use App\Helpers\Validador;
+use App\Services\UsuarioService;
 
 class LoginController extends Controller
 {
     private LoginService $loginService;
+    private UsuarioService $usuarioService;
 
     public function __construct()
     {
         $this->loginService = new LoginService();
+        $this->usuarioService = new UsuarioService();
     }
 
     public function login()
@@ -38,6 +41,29 @@ class LoginController extends Controller
             ]);
         }
 
+        $usuario = $this->usuarioService->buscarPorEmail($email);
+
+        //email não encontrado
+        if (!$usuario) {
+            return $this->view('Login/Login', [
+                'erros' => [
+                    'login' => 'E-mail ou senha inválidos.'
+                ],
+                'email' => $email
+            ]);
+        }
+
+        // xonta desativada
+        if ((int) $usuario['Ativo'] !== 1) {
+            return $this->view('Login/Login', [
+                'erros' => [
+                    'login' => 'Esta conta está desativada. Entre em contato com um administrador.'
+                ],
+                'email' => $email
+            ]);
+        }
+
+        //erifica e-mail e senha
         $usuario = $this->loginService->autenticar($email, $senha);
 
         if (!$usuario) {

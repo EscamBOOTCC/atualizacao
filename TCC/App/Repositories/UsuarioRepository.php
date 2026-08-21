@@ -12,27 +12,32 @@ class UsuarioRepository
     {
         $this->conn = ConnectionFactory::getConnection();
     }
+
     public function findById(int $id): ?array
     {
         $sql = "SELECT 
-                u.IdUsuario,
-                u.Nome,
-                u.CPF,
-                u.Genero,
-                u.Email,
-                u.DataNascimento,
-                u.FotoPerfil,
-                u.Endereco,
-                CASE 
-                    WHEN a.IdAdm IS NOT NULL THEN 'adm'
-                    ELSE 'trabalhador'
-                END AS Tipo
-            FROM Usuario u
-            LEFT JOIN ADM a ON a.IdAdm = u.IdUsuario
-            WHERE u.IdUsuario = :id";
+                    u.IdUsuario,
+                    u.Nome,
+                    u.CPF,
+                    u.Genero,
+                    u.Email,
+                    u.DataNascimento,
+                    u.FotoPerfil,
+                    u.Endereco,
+                    u.Ativo,
+                    CASE 
+                        WHEN a.IdAdm IS NOT NULL THEN 'adm'
+                        ELSE 'trabalhador'
+                    END AS Tipo
+                FROM Usuario u
+                LEFT JOIN ADM a ON a.IdAdm = u.IdUsuario
+                WHERE u.IdUsuario = :id";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':id' => $id]);
+
+        $stmt->execute([
+            ':id' => $id
+        ]);
 
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
 
@@ -47,6 +52,7 @@ class UsuarioRepository
                     u.Email,
                     u.Genero,
                     u.FotoPerfil,
+                    u.Ativo,
                     CASE 
                         WHEN a.IdAdm IS NOT NULL THEN 'adm'
                         ELSE 'trabalhador'
@@ -55,6 +61,7 @@ class UsuarioRepository
                 LEFT JOIN ADM a ON a.IdAdm = u.IdUsuario";
 
         $stmt = $this->conn->prepare($sql);
+
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -70,6 +77,7 @@ class UsuarioRepository
                     u.Email,
                     u.Senha,
                     u.FotoPerfil,
+                    u.Ativo,
                     CASE 
                         WHEN a.IdAdm IS NOT NULL THEN 'adm'
                         ELSE 'trabalhador'
@@ -79,6 +87,7 @@ class UsuarioRepository
                 WHERE u.Email = :email";
 
         $stmt = $this->conn->prepare($sql);
+
         $stmt->execute([
             ':email' => $email
         ]);
@@ -91,9 +100,29 @@ class UsuarioRepository
     public function salvar(array $usuario)
     {
         $sql = "INSERT INTO Usuario
-                    (Nome, CPF, Genero, Email, Senha, DataNascimento, FotoPerfil, Endereco)
+                    (
+                        Nome,
+                        CPF,
+                        Genero,
+                        Email,
+                        Senha,
+                        DataNascimento,
+                        FotoPerfil,
+                        Endereco,
+                        Ativo
+                    )
                 VALUES
-                    (:nome, :cpf, :genero, :email, :senha, :dataNascimento, :fotoPerfil, :endereco)";
+                    (
+                        :nome,
+                        :cpf,
+                        :genero,
+                        :email,
+                        :senha,
+                        :dataNascimento,
+                        :fotoPerfil,
+                        :endereco,
+                        :ativo
+                    )";
 
         $stmt = $this->conn->prepare($sql);
 
@@ -102,10 +131,14 @@ class UsuarioRepository
             ':cpf' => $usuario['CPF'],
             ':genero' => $usuario['Genero'],
             ':email' => $usuario['Email'],
-            ':senha' => password_hash($usuario['Senha'], PASSWORD_DEFAULT),
+            ':senha' => password_hash(
+                $usuario['Senha'],
+                PASSWORD_DEFAULT
+            ),
             ':dataNascimento' => $usuario['DataNascimento'],
             ':fotoPerfil' => $usuario['FotoPerfil'],
-            ':endereco' => $usuario['Endereco']
+            ':endereco' => $usuario['Endereco'],
+            ':ativo' => true
         ]);
 
         if ($sucesso) {
@@ -129,9 +162,17 @@ class UsuarioRepository
 
             // Depois cria o trabalhador usando o mesmo ID
             $sql = "INSERT INTO Trabalhador
-                        (IdTrabalhador, Classe, `StatusAcordo`)
+                        (
+                            IdTrabalhador,
+                            Classe,
+                            StatusAcordo
+                        )
                     VALUES
-                        (:idTrabalhador, :classe, :statusAcordo)";
+                        (
+                            :idTrabalhador,
+                            :classe,
+                            :statusAcordo
+                        )";
 
             $stmt = $this->conn->prepare($sql);
 
@@ -146,7 +187,9 @@ class UsuarioRepository
             return $idUsuario;
         } catch (\Exception $e) {
 
-            $this->conn->rollBack();
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
 
             throw $e;
         }
@@ -181,22 +224,25 @@ class UsuarioRepository
             return $idUsuario;
         } catch (\Exception $e) {
 
-            $this->conn->rollBack();
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
 
             throw $e;
         }
     }
+
     public function atualizar(array $usuario)
     {
         $sql = "UPDATE Usuario SET
-                Nome = :nome,
-                CPF = :cpf,
-                Genero = :genero,
-                Email = :email,
-                DataNascimento = :dataNascimento,
-                FotoPerfil = :fotoPerfil,
-                Endereco = :endereco
-            WHERE IdUsuario = :idUsuario";
+                    Nome = :nome,
+                    CPF = :cpf,
+                    Genero = :genero,
+                    Email = :email,
+                    DataNascimento = :dataNascimento,
+                    FotoPerfil = :fotoPerfil,
+                    Endereco = :endereco
+                WHERE IdUsuario = :idUsuario";
 
         $stmt = $this->conn->prepare($sql);
 
@@ -209,6 +255,20 @@ class UsuarioRepository
             ':fotoPerfil' => $usuario['FotoPerfil'],
             ':endereco' => $usuario['Endereco'],
             ':idUsuario' => $usuario['IdUsuario']
+        ]);
+    }
+
+    public function alterarStatus(int $idUsuario, bool $ativo)
+    {
+        $sql = "UPDATE Usuario
+                SET Ativo = :ativo
+                WHERE IdUsuario = :idUsuario";
+
+        $stmt = $this->conn->prepare($sql);
+
+        return $stmt->execute([
+            ':ativo' => $ativo ? 1 : 0,
+            ':idUsuario' => $idUsuario
         ]);
     }
 }

@@ -9,28 +9,122 @@ $router = new Router();
 
 \App\Database\ConnectionFactory::getConnection();
 
-// Rotas principais
+
+// ======================================================
+// LOGIN
+// ======================================================
+
 $router->get('/', 'LoginController@login');
 
 $router->get('/login', 'LoginController@login');
+
 $router->post('/login', 'LoginController@autenticar');
+
 $router->get('/logout', 'LoginController@logout');
 
-// Usuários
-$router->get('/usuarios', 'UsuarioController@listarTodosUsuarios');
-$router->get('/usuarios/cadastrar', 'UsuarioController@cadastrarUsuarios');
-$router->get('/usuarios/editar', 'UsuarioController@editar');
 
-$router->get('/usuarios/cadastrarTrabalhador', 'UsuarioController@cadastrarTrabalhador');
-$router->get('/usuarios/cadastrarAdm', 'UsuarioController@cadastrarAdm');
+// ======================================================
+// USUÁRIOS
+// ======================================================
 
-$router->post('/usuarios/salvar', 'UsuarioController@salvar');
-$router->post('/usuarios/salvarTrabalhador', 'UsuarioController@salvarTrabalhador');
-$router->post('/usuarios/salvarAdm', 'UsuarioController@salvarAdm');
-$router->post('/usuarios/atualizar', 'UsuarioController@atualizar');
+// Listar usuários
+$router->get(
+    '/usuarios',
+    'UsuarioController@listarTodosUsuarios'
+);
 
-// Outras rotas
-$router->get('/acordo', 'AcordoController@formalizarAcordo');
-$router->get('/adm', 'AdministradorController@dashboard');
+// Abrir tela de edição
+$router->get(
+    '/usuarios/editar',
+    'UsuarioController@editar'
+);
+
+// Salvar edição
+$router->post(
+    '/usuarios/editar',
+    'UsuarioController@atualizar'
+);
+
+
+// ======================================================
+// TRABALHADOR
+// ======================================================
+
+// Abrir cadastro de trabalhador
+$router->get(
+    '/trabalhador/cadastrar',
+    'UsuarioController@cadastrarTrabalhador'
+);
+
+// Salvar trabalhador
+$router->post(
+    '/trabalhador/cadastrar',
+    'UsuarioController@salvarTrabalhador'
+);
+
+
+// ======================================================
+// ADMINISTRADOR
+// ======================================================
+
+// Abrir cadastro de ADM
+$router->get(
+    '/adm/cadastrar',
+    'UsuarioController@cadastrarAdm'
+);
+
+// Salvar ADM
+$router->post(
+    '/adm/cadastrar',
+    'UsuarioController@salvarAdm'
+);
+
+
+// ======================================================
+// GRANDES ÁREAS
+// ======================================================
+
+$router->get(
+    '/grandes-areas',
+    'GrandesAreasController@gerenciarEstrutura'
+);
+
+$router->post(
+    '/grandes-areas/salvar',
+    'GrandesAreasController@salvar'
+);
+
+$router->post(
+    '/grandes-areas/atualizar',
+    'GrandesAreasController@atualizar'
+);
+
+$router->post(
+    '/grandes-areas/excluir',
+    'GrandesAreasController@excluir'
+);
+
+
+// ======================================================
+// OUTRAS ROTAS
+// ======================================================
+
+$router->get(
+    '/acordo',
+    'AcordoController@formalizarAcordo'
+);
+
+$router->get(
+    '/adm',
+    'AdministradorController@dashboard'
+);
+
+$router->post(
+    '/usuarios/alterar-status',
+    'UsuarioController@alterarStatus'
+);
+// ======================================================
+// EXECUTAR ROUTER
+// ======================================================
 
 $router->run();

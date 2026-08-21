@@ -1,33 +1,27 @@
 <?php
 
-namespace App\Database;
+namespace App\Controllers;
 
-use PDO;
+use App\Core\Controller;
+use App\Database\ConnectionFactory;
 
-class DatabaseInitializer
+
+class ConfigController extends Controller
 {
 
-    public function init(PDO $connection)
+    private $conn;
+
+    public function __construct()
     {
-        $connection->exec("CREATE DATABASE IF NOT EXISTS " . DB_NAME);
-        $connection->exec("USE " . DB_NAME);
+        $this->conn = ConnectionFactory::getConnection();
 
-        $scriptPath = __DIR__ . '/Scripts/ScriptBD.sql';
-
-        if (file_exists($scriptPath)) {
-            $sql = file_get_contents($scriptPath);
-
-            try {
-                $connection->exec($sql);
-            } catch (\Exception $e) {
-                error_log("Erro ao inicializar banco de dados: " . $e->getMessage());
-            }
+        if (!DEV_ENVIRONMENT) {
+            $this->redirect(URL_BASE . "/login");
         }
-
-        $this->criarADMs($connection);
     }
 
-    public function criarADMs($conn)
+
+    public function criarADMs()
     {
 
 
@@ -36,18 +30,21 @@ class DatabaseInitializer
                 'nome' => 'admin',
                 'cpf' => '000000000009',
                 'email' => 'admin@admin',
+                'ativo' => true,
                 'senha' => password_hash("admin", PASSWORD_BCRYPT)
             ],
             [
                 'nome' => 'Luiza',
                 'cpf' => '00000000001',
                 'email' => 'Luiza@admin',
+                'ativo' => true,
                 'senha' => password_hash("Luiza", PASSWORD_BCRYPT)
             ],
             [
                 'nome' => 'Rafa',
                 'cpf' => '00000000002',
                 'email' => 'Rafa@admin',
+                'ativo' => true,
                 'senha' => password_hash("Rafa", PASSWORD_BCRYPT)
 
             ],
@@ -55,6 +52,7 @@ class DatabaseInitializer
                 'nome' => 'Evillyn',
                 'cpf' => '00000000003',
                 'email' => 'Evillyn@admin',
+                'ativo' => true,
                 'senha' => password_hash("Evillyn", PASSWORD_BCRYPT)
 
             ],
@@ -62,19 +60,20 @@ class DatabaseInitializer
                 'nome' => 'Sarah',
                 'cpf' => '00000000004',
                 'email' => 'Sarah@admin',
+                'ativo' => true,
                 'senha' => password_hash("Sarah", PASSWORD_BCRYPT)
 
             ]
         ];
 
-        $sqlUsuario = "INSERT INTO Usuario (Nome, CPF, Genero, Email, Senha, DataNascimento, FotoPerfil, Endereco) 
-        VALUES (:nome, :cpf, NULL, :email, :senha, NULL, NULL, NULL)";
+        $sqlUsuario = "INSERT INTO Usuario (Nome, CPF, Genero, Email, Senha, DataNascimento, FotoPerfil, Endereco, Ativo) 
+        VALUES (:nome, :cpf, NULL, :email, :senha, NULL, NULL, NULL, true)";
 
         $sqlAdm = "INSERT INTO ADM (IdAdm) VALUES (:idAdm)";
 
-        $stmtUsuario = $conn->prepare($sqlUsuario);
+        $stmtUsuario = $this->conn->prepare($sqlUsuario);
 
-        $stmtAdm = $conn->prepare($sqlAdm);
+        $stmtAdm = $this->conn->prepare($sqlAdm);
 
         foreach ($usuarios as $usuario) {
 
@@ -88,12 +87,14 @@ class DatabaseInitializer
             ]);
 
             // Recupera o ID gerado pelo MySQL
-            $idUsuario = $conn->lastInsertId();
+            $idUsuario = $this->conn->lastInsertId();
 
             // Define o usuário como administrador
             $stmtAdm->execute([
                 ':idAdm' => $idUsuario
             ]);
         }
+
+        $this->redirect(URL_BASE . "/login");
     }
 }

@@ -11,6 +11,88 @@ $usuario = $usuario ?? [];
     <title>Editar Usuário</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #615243 !important;
+            min-height: 100vh;
+            color: #2b2b2b;
+        }
+
+        .card {
+            border: none !important;
+            border-radius: 24px !important;
+            background-color: #f3ede2 !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #550a16 !important;
+            color: #ffffff !important;
+            padding: 20px 25px !important;
+            border-bottom: 2px solid #3f060f !important;
+        }
+
+        .card-header h4 {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .card-body {
+            padding: 30px !important;
+        }
+
+        .form-label {
+            color: #550a16;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            border: 1px solid #d1c1aa;
+            background-color: #ffffff;
+            padding: 10px 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #550a16;
+            box-shadow: 0 0 0 0.25rem rgba(85, 10, 22, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #550a16 !important;
+            border-color: #550a16 !important;
+            color: #ffffff !important;
+            border-radius: 20px !important;
+            padding: 8px 22px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #3f060f !important;
+            border-color: #3f060f !important;
+        }
+
+        .btn-secondary {
+            background-color: #c08733 !important;
+            border-color: #c08733 !important;
+            color: #ffffff !important;
+            border-radius: 20px !important;
+            padding: 8px 22px;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background-color: #a37025 !important;
+            border-color: #a37025 !important;
+        }
+    </style>
+
 </head>
 
 <body class="bg-light">

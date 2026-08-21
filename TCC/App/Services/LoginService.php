@@ -17,7 +17,17 @@ class LoginService
     {
         $usuario = $this->usuarioService->buscarPorEmail($email);
 
-        if (!$usuario || !password_verify($senha, $usuario['Senha'])) {
+        if (!$usuario) {
+            return null;
+        }
+
+        // Usuário desativado não pode fazer login
+        if ((int) $usuario['Ativo'] !== 1) {
+            return null;
+        }
+
+        // Senha incorreta
+        if (!password_verify($senha, $usuario['Senha'])) {
             return null;
         }
 
